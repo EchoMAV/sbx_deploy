@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<License>
+  <Data>
+    <LicensedTo>UT-Battelle</LicensedTo>
+    <EmailTo>kirkjl@ornl.gov</EmailTo>
+    <LicenseType>Developer OEM</LicenseType>
+    <LicenseNote>1 Developer And Unlimited Deployment Locations</LicenseNote>
+    <OrderID>211123135901</OrderID>
+    <UserID>898722</UserID>
+    <OEM>This is a redistributable license</OEM>
+    <Products>
+      <Product>GroupDocs.Metadata for .NET</Product>
+    </Products>
+    <EditionType>Professional</EditionType>
+    <SerialNumber>f110a626-117a-4052-9296-53d925b4137d</SerialNumber>
+    <SubscriptionExpiry>20221123</SubscriptionExpiry>
+    <LicenseVersion>3.0</LicenseVersion>
+    <LicenseInstructions>https://purchase.groupdocs.com/policies/use-license</LicenseInstructions>
+  </Data>
+  <Signature>JztTA5INMkKOwD/1bujaaVWcV2l6hBJAIMKp/DNoWniO6A/LgFreZBpWvtZ4Rplke/aUBikKuAT2RYVnum4FKjJDTYuwEkyMBzanJv1Esh6id2y95A7hFWvkr/9Hro2wR48+KSkAIaWTrn/+yZ6kRh6rMO0bXLY4mc39KMpB8+Q=</Signature>
+</License>

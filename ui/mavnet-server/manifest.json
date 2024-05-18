@@ -1,0 +1,11 @@
+{
+    "version": 0,
+
+    "menu": {
+        "mav-server": {
+            "label": "Server Configuration",
+            "path": "server.html",
+            "order": 2
+        }
+    }
+}

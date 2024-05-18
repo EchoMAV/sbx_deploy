@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Configuration</title>
+    <meta charset="utf-8">
+    <link href="../base1/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../base1/cockpit.js"></script>
+    <script src="../base1/jquery-3.7.1.min.js"></script>
+
+</head>
+<body>
+   <div class="pf-c-page">
+        <main class="pf-c-page__main" tabindex="-1">
+            <section class="pf-c-page__main-section pf-m-light">
+
+                <div class="row justify-content-start">
+                    <div class="col-lg-12 ms-3"><p class="fw-bold fs-2 mt-3 mb-0">Telemetry Configuration</p> </div>
+                    <button hidden class="pf-c button pf-m-primary" id="enable">Disable</button>
+                    <div class="col-lg-12 ms-3"><p class="mt-0 mb-0">Software Version: <I><span id='version'></span></I>, Configuration File: <I><span id='file_location'></span></I></p> </div>
+                    <div class="col-lg-12 ms-3"><p class="mt-1 me-3">The settings below can be used to configure the serial port receiving data from the autopilot as well as the telemetry and TAK endpoints.</p></div>
+                <div class="row justify-content-start">
+                    <div class="col ms-3"><p class="fw-bold fs-5 mt-3 mb-0"><img src="settings_ethernet.svg" class="me-2">FMU Setup</p><p class="fw-light fs-6">Please select the serial device and baud rate used for the input of serial telemetry into the EchoPilot AI module. Default baud rate is 115200.</p></div>   
+                </div>
+                <div class="row justify-content-start mb-2">
+                    <div class="col-2 ms-3"><label class="control-label" for="fmuDevice">Connection Status:</label></div>
+                    <div class="col"><strong><text id="fmuConnStatus"></text></strong></div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3"><label class="control-label" for="fmuDevice">Input Serial Interface</label></div>
+                    <div class="col"><select id="fmuDevice"></select></div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="baudrate">Baud Rate (bps)</label></div>
+                    <div class="col mt-3"><select id="baudrate"></select></div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="fmuId">FMU System ID</label></div>
+                    <div class="col mt-3"><input id="fmuId"></div></div>
+                </div>
+              
+
+                <div class="row justify-content-start">
+                    <div class="col ms-3"><p class="fw-bold fs-5 mt-4 mb-0"><img src="lan.svg" class="me-2">Network Telemetry Endpoint</p><p class="fw-light fs-6">Configure the endpoint used for UDP telemetry. Based on the current IP address of the EchoPilot AI, this endpoint should be in the <strong><span id='ipsubnet1'></span></strong> subnet, or a multicast group address may be used.</p>
+                        <p class="fw-light fs-6">The EchoPilot AI operates in client mode, meaning it will send messages to the target endpoint below. When a Ground Control System (GCS) detects these messages, it will start communicating back.</p>                        
+                        </p>   
+                    </div>
+             
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="losHost">Host</label></div>
+                    <div class="col mt-3"><input id="losHost"></div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="losPort">Port</label></div>
+                    <div class="col mt-3"><input id="losPort"></div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="losIface">Interface</label></div>
+                    <div class="col mt-3"><select id="losIface"></select></div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <div class="col ms-3"><p class="fw-bold fs-5 mt-4 mb-0"><img src="lan.svg" class="me-2">TAK CoT Setup</p>
+                        <p class="fw-light fs-6">These settings are used for the TAK Cursor-on-target generator. The mulicast address should match the CoT multicast address defined by the TAK network.</p>                        
+                    </div>
+                
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="atakHost">Host</label></div>
+                    <div class="col mt-3"><input id="atakHost"></div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="atakPort">Port</label></div>
+                    <div class="col mt-3"><input id="atakPort"></div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><button class="btn-primary" id="save">Save/Update</button></div>
+                    <div class="col mt-3"><span id="result"></span></div>
+                </div>
+
+
+                <pre id="output"></pre>
+            </section>
+        </main>
+    </div>
+
+    <script src="telemetry.js"></script>
+</body>
+</html>

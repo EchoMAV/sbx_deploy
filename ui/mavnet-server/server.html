@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MAVNet Server Configuration</title>
+    <meta charset="utf-8">
+    <link href="../base1/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../base1/cockpit.js"></script>
+</head>
+<body>
+    <div class="pf-c-page">
+        <main class="pf-c-page__main" tabindex="-1">
+            <section class="pf-c-page__main-section pf-m-light">
+
+                <div class="row justify-content-start">
+                    <div class="col-lg-12 ms-3"><p class="fw-bold fs-2 mt-3 mb-0">Cloud Control System Setup</p> </div>                                       
+                    <div class="col-lg-12 ms-3"><p class="mt-1 me-3">The EchoMAV MK1 communicates with the EchoMAV cloud GCS system using the informaiton below.</p></div>                    
+                </div>
+                    
+
+                
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="serverUrl">Server Address</label></div>
+                    <div class="col mt-3"><input id="serverUrl"></div></div>
+                </div>     
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="serialNum">Serial Number</label></div>
+                    <div class="col mt-3"><input id="serialNum"></div></div>
+                </div>                
+              
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><label class="control-label" for="deviceTok">API Key</label></div>
+                    <div class="col mt-3"><textarea id="deviceTok" rows="4" cols="100" wrap="soft"></textarea></div>
+                    
+                </div>     
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-0"></div>
+                    <div class="col mt-0"><p class="mt-0 me-3 font-weight-light">The API Key is obtained from the web GCS Setup page. Login at <a href="https://gcs.echomav.com/setup" target="_blank">https://gcs.echomav.com/setup</a></p></div>
+                </div>
+
+
+                <div class="row justify-content-start">
+                    <div class="col-2 ms-3 mt-3"><button class="btn-primary" id="save">Save/Update</button></div>
+                    <div class="col mt-3"><span id="result"></span></div>
+                </div>
+
+              
+
+
+                <pre id="output"></pre>
+            </section>
+        </main>
+    </div>
+
+    <script src="server.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "version": 0,
+
+    "menu": {
+        "mavnet": {
+            "label": "Telemetry Configuration",
+            "path": "telemetry.html",
+            "order": 1
+        }
+    }
+}

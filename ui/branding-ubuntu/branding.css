@@ -1,0 +1,30 @@
+body.login-pf {
+    background: url("echomav_bg.jpg") no-repeat 50% 0;
+    background-size: cover;
+    background-color: #101010;
+}
+
+#badge {
+    width: 300px;
+    height: 200px;
+    background-image: url("logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#brand {
+    font-size: 18pt;
+    text-transform: uppercase;
+}
+
+#brand:before {
+    content: "EchoMAV EchoLite";
+}
+
+#index-brand {
+    content: "EchoMAV EchoLite";
+}
+
+#index-brand:before {
+    content: "EchoMAV EchoLite";
+}

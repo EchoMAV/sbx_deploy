@@ -1,0 +1,12 @@
+{
+  "type" : "iridium",
+  "port" : "COM10",
+  "baud" : 19200,
+  "parity" : "N",
+  "dataBits" : 8,
+  "stopBits" : "One",
+  "useHw" : "False",
+  "sleepGpio" : 267,
+  "ringGpio" : 264,
+  "naGpio" : 424
+}
