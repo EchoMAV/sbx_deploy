@@ -9,11 +9,10 @@ DRY_RUN=false
 LOCAL=/usr/local
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 
-$SUDO . /etc/os-release
-$SUDO echo "deb http://deb.debian.org/debian ${VERSION_CODENAME}-backports main" > /etc/apt/sources.list.d/backports.list
+$SUDO echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/backports.list
 $SUDO apt update
 
-$SUDO apt install -y -t ${VERSION_CODENAME}-backports cockpit
+$SUDO apt install -y -t bookworm-backports cockpit
 
 # Change the port to 443/80 and restart
 
@@ -22,4 +21,6 @@ $SUDO sed -i '/ListenStream=80/d' /lib/systemd/system/cockpit.socket
 $SUDO sed -i '/ListenStream=443/a ListenStream=80' /lib/systemd/system/cockpit.socket 
 $SUDO systemctl daemon-reload
 $SUDO systemctl restart cockpit.socket
+
+
 
