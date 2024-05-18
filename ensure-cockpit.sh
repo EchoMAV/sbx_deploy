@@ -3,12 +3,17 @@
 #   ensure-cockpit.sh
 #
 # This script ensures that cockpit it installed and setup
+# As recommended by cockpit, it enableds the backport repo and uses it to get the latest version
 
 DRY_RUN=false
 LOCAL=/usr/local
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 
-$SUDO apt-get install -y cockpit
+$SUDO . /etc/os-release
+$SUDO echo "deb http://deb.debian.org/debian ${VERSION_CODENAME}-backports main" > /etc/apt/sources.list.d/backports.list
+$SUDO apt update
+
+$SUDO apt install -y -t ${VERSION_CODENAME}-backports cockpit
 
 # Change the port to 443/80 and restart
 

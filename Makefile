@@ -78,8 +78,7 @@ cockpit:
 	@$(SUDO) cp -rf ui/video/* /usr/share/cockpit/video/
 	@$(SUDO) mkdir /usr/share/cockpit/cellular
 	@$(SUDO) cp -rf ui/cellular/* /usr/share/cockpit/cellular/		
-# look at default branding before I change anything
-# @$(SUDO) cp -rf ui/branding-ubuntu/* /usr/share/cockpit/branding/debian/
+ 	@$(SUDO) cp -rf ui/branding/debian/* /usr/share/cockpit/branding/debian/
 	@$(SUDO) cp -rf ui/static/* /usr/share/cockpit/static/	
 	@$(SUDO) cp -rf ui/base1/* /usr/share/cockpit/base1/
 	@$(SUDO) install -Dm755 version.txt $(LOCAL)/echopilot/.	
