@@ -27,7 +27,7 @@ trap 'trap " " SIGINT SIGTERM SIGHUP; kill 0; wait; sigterm_handler' SIGINT SIGT
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 
 echo "Enter the network provisioning information below...";
-echo "Note for Herelink radios, use 192.168.144.4/24, but 192.168.144.10 and 192.168.144.11 cannot be used";
+echo "Note for Herelink radios, use 192.168.144.X/24, but 192.168.144.10 and 192.168.144.11 cannot be used";
 
 IFACE="eth0"
 IP_INPUT=$(interactive "172.20.1.4/24" "IPv4 Address with Netmask")
@@ -90,10 +90,10 @@ $SUDO nmcli con mod "static-$IFACE" +ipv4.routes "224.0.0.0/8"
 $SUDO nmcli con mod "static-$IFACE" +ipv4.routes "239.0.0.0/8"
 
 # change hostname
-echo "Setting hostname to EchoMAV-SBX...";
-echo "EchoMAV-SBX" > /tmp/$$.hostname
-$SUDO install -Dm644 /tmp/$$.hostname /etc/hostname
-$SUDO hostname "EchoMAV-SBX"
+#echo "Setting hostname to EchoMAV-SBX...";
+#echo "EchoMAV-SBX" > /tmp/$$.hostname
+#$SUDO install -Dm644 /tmp/$$.hostname /etc/hostname
+#$SUDO hostname "EchoMAV-SBX"
 
 echo "";
 echo "Static Ethernet Configuration Successful! Interface $IFACE is set to $HOST/$NETMASK"
