@@ -109,6 +109,7 @@ function SuccessReadFile(content) {
             losHost.value = myConfig.LOS_HOST;
             losPort.value = myConfig.LOS_PORT;
             AddDropDown(losBitrate, losBitrateArray, myConfig.LOS_BITRATE);
+            videoHost.value = myConfig.VIDEOSERVER_HOST
            // videoPort.value = myConfig.VIDEOSERVER_PORT;
             videoName.value = myConfig.VIDEOSERVER_STREAMNAME;
             serverURL.innerHTML = "<a href='https://" + videoHost.value + "/LiveApp/play.html?id=" + videoName.value + "' target='_blank'>https://" + videoHost.value + "/LiveApp/play.html?id=" + videoName.value + "</a>";
