@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+.PHONY	Makefile	/^.PHONY = clean dependencies cockpit cellular network enable install provision see uninstall n2n$/;"	m
+CONFIG	Makefile	/^CONFIG ?= \/var\/local$/;"	m
+DRY_RUN	Makefile	/^DRY_RUN=false$/;"	m
+LIBSYSTEMD	Makefile	/^LIBSYSTEMD=\/lib\/systemd\/system$/;"	m
+LOCAL	Makefile	/^LOCAL=\/usr\/local$/;"	m
+LOCAL_SCRIPTS	Makefile	/^LOCAL_SCRIPTS=scripts\/start.sh scripts\/cockpitScript.sh scripts\/temperature.sh scripts\/start/;"	m
+N2N_REPO	Makefile	/^N2N_REPO=https:\/\/github.com\/ntop\/n2n.git$/;"	m
+N2N_REV	Makefile	/^N2N_REV=3.1.1$/;"	m
+PKGDEPS	Makefile	/^PKGDEPS ?= v4l-utils build-essential nano nload picocom curl htop modemmanager$/;"	m
+PLATFORM	Makefile	/^PLATFORM ?= $(shell python serial_number.py | cut -c1-4)$/;"	m
+SERIAL	Makefile	/^SERIAL ?= $(shell python3 serial_number.py)$/;"	m
+SERVICES	Makefile	/^SERVICES=temperature.service video.service edge.service$/;"	m
+SHELL	Makefile	/^SHELL := \/bin\/bash$/;"	m
+SN	Makefile	/^SN := $(shell hostname)$/;"	m
+SUDO	Makefile	/^SUDO := $(shell test $${EUID} -ne 0 && echo "sudo")$/;"	m
+SW_LOCATION	Makefile	/^SW_LOCATION=sw_driver$/;"	m
+SYSCFG	Makefile	/^SYSCFG=\/usr\/local\/echopilot\/mavnetProxy$/;"	m
+cellular	Makefile	/^cellular:$/;"	t
+clean	Makefile	/^clean:$/;"	t
+cockpit	Makefile	/^cockpit:$/;"	t
+default	Makefile	/^default:$/;"	t
+dependencies	Makefile	/^dependencies:	$/;"	t
+disable	Makefile	/^disable:$/;"	t
+enable	Makefile	/^enable:$/;"	t
+install	Makefile	/^install: dependencies	$/;"	t
+n2n	Makefile	/^n2n:$/;"	t
+network	Makefile	/^network:$/;"	t
+see	Makefile	/^see:$/;"	t
+uninstall	Makefile	/^uninstall:$/;"	t

@@ -9,9 +9,10 @@ FORCE=false
 LOCAL=/usr/local
 GSTD=${LOCAL}/bin/gstd
 GSTD_SRC=${LOCAL}/src/gstd-1.x
-GSTD_TAG=v0.15.0
+GSTD_TAG=release/v0.15.0
 GST_INTERPIPE_SRC=${LOCAL}/src/gst-interpipe
 GST_INTERPIPE_TAG=v1.1.8
+ECHOMAV=https://github.com/EchoMAV
 RIDGERUN=https://github.com/RidgeRun
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 
@@ -83,12 +84,12 @@ fi
 set -e
 if ! [ -d "${GSTD_SRC}" ] ; then
 	$SUDO chmod a+w $(dirname ${GSTD_SRC}/)
-	( cd $(dirname ${GSTD_SRC}/) && git clone ${RIDGERUN}/$(basename ${GSTD_SRC}).git && cd ${GSTD_SRC} && git checkout ${GSTD_TAG} )
+	( cd $(dirname ${GSTD_SRC}/) && git clone ${ECHOMAV}/$(basename ${GSTD_SRC}).git && cd ${GSTD_SRC} && git checkout ${GSTD_TAG} )
 else
 	( cd ${GSTD_SRC} && git fetch && git checkout ${GSTD_TAG} && rm -f Makefile configure )
 fi
 ( cd ${GSTD_SRC} && ./autogen.sh && ./configure && make clean && make )
-( cd ${GSTD_SRC} && $SUDO make install )
+( cd ${GSTD_SRC} &&  $SUDO make install )
 
 if ! [ -d "${GST_INTERPIPE_SRC}" ] ; then
 	$SUDO chmod a+w $(dirname ${GST_INTERPIPE_SRC}/)
