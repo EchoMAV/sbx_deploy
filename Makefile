@@ -58,7 +58,7 @@ network:
 
 n2n:
 # clone and build n2n
-	@[ -d src ] || mkdir -p src
+	@if [ -d src ]; then $(SUDO) rm -rf src; else mkdir -p src; fi
 	@git clone $(N2N_REPO) -b $(N2N_REV) src
 	@( cd ./src && ./autogen.sh && ./configure && make && $(SUDO) make install )
 	@for s in $(LOCAL_SCRIPTS) ; do $(SUDO) install -Dm755 $${s} $(LOCAL)/echopilot/$${s} ; done
@@ -139,7 +139,8 @@ install: dependencies
 	@[ -d $(LOCAL)/echopilot/mavnetProxy ] || $(SUDO) mkdir $(LOCAL)/echopilot/mavnetProxy
 	@$(SUDO) cp -a bin/. $(LOCAL)/echopilot/mavnetProxy/  
 # The baseline configuration files are including in this folder including video.conf
-	@$(SUDO) chmod +x $(LOCAL)/echopilot/mavnetProxy/mavnetProxy
+# not using mavnetProxy for this install, so don't chmod it
+# @$(SUDO) chmod +x $(LOCAL)/echopilot/mavnetProxy/mavnetProxy
 
 # install services and enable them
 	@$(MAKE) --no-print-directory enable
