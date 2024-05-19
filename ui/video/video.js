@@ -213,7 +213,7 @@ function SaveSettings() {
     {
         console.log("Starting pipelines...");
         cockpit.spawn(["gst-client", "pipeline_play", "h264src"]);  
-        setTimeout(() => {  cockpit.spawn(["gst-client", "pipeline_play", "los"]); }, 2000);        
+        setTimeout(() => {  cockpit.spawn(["gst-client", "pipeline_play", "los"]); }, 1000);        
 
     }
     //handle server stream
