@@ -45,8 +45,8 @@ function InitPage() {
 
     cockpit.script(scriptLocation + "cockpitScript.sh -z")
     .then(function(content) {
-        myIP.innerHTML=content.trim();   
-        myIP2.innerHTML=content.trim();     
+     //   myIP.innerHTML=content.trim();   
+     //   myIP2.innerHTML=content.trim();     
     })
     .catch(error => Fail(error));  
     var serverFound = false;

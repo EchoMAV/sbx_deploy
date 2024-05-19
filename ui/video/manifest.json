@@ -1,6 +1,6 @@
 {
     "version": 0,
-
+    "content-security-policy": "script-src: 'self' 'unsafe-inline'",
     "menu": {
         "video": {
             "label": "Video Configuration",
