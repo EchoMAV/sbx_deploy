@@ -55,6 +55,9 @@ function InitPage() {
     cockpit.script(scriptLocation + "cockpitScript.sh -g")
     .then(function(content) {
         try {
+                mainSection.style.display="block";  //hack until I fix 
+                noServerSection.style.display="none";  //hack until I fix
+                break; //skip for now
             var jsonObject = JSON.parse(content);
 
             for (const pipeline of jsonObject.response.nodes) { 
