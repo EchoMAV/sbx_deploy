@@ -22,6 +22,13 @@ function contains {
 	echo $result
 }
 
+function interactive {
+	local result
+	read -p "${2}? ($1) " result
+	if [ -z "$result" ] ; then result=$1 ; elif [ "$result" == "*" ] ; then result="" ; fi
+	echo $result
+}
+
 APN="Broadband";  #default value
 if ! $DEFAULTS ; then
 	APN=$(interactive "$APN" "APN for cellular serice")			
