@@ -192,7 +192,26 @@ function SaveSettings() {
 
     //rather than restarting video service, dynamically change settings
 
+    //Handle h264src and los
+    cockpit.spawn(["gst-client", "pipeline_stop", "los"]);
+    cockpit.spawn(["gst-client", "pipeline_stop", "h264src"]);
+
+    //change bitrate
+    cockpit.spawn(["gst-client", "element_set", "h264src", "losEncoder", "bitrate", losBitRate]);
+
+    //change endpoint
+    cockpit.spawn(["gst-client", "element_set", "los", "losUDPSink", "host", losHost.value]);
+    cockpit.spawn(["gst-client", "element_set", "los", "losUDPSink", "port", losPort.value]);
+
+    if (losBitRate!==0)
+    {
+        cockpit.spawn(["gst-client", "pipeline_play", "h264src"]);  
+        cockpit.spawn(["gst-client", "pipeline_play", "los"]);  
+
+    }
+    //handle server stream
     //stop the pipeline (can't change location without stopping anyway)
+    /*
     cockpit.spawn(["gst-client", "pipeline_stop", "server"]);
 
     //bitrate
@@ -206,7 +225,7 @@ function SaveSettings() {
 
     //gimbal receive port (not used for antmedia)
     //cockpit.spawn(["gst-client", "element_set", "h265src", "serverReceivePort", "port", gimbalPort.value]);
-
+*/
     //update the server URL link
     serverURL.innerHTML = "<a href='https://" + videoHost.value + "/LiveApp/play.html?id=" + videoName.value + "' target='_blank'>https://" + videoHost.value + "/LiveApp/play.html?id=" + videoName.value + "</a>";
 
@@ -214,8 +233,8 @@ function SaveSettings() {
     qrcode.makeCode("https://" + videoHost.value + "/LiveApp/play.html?id=" + videoName.value);
     
     //start the pipeline back (unless disabled)
-    if (bitRate!==0)
-        cockpit.spawn(["gst-client", "pipeline_play", "server"]);    
+    //if (bitRate!==0)
+    //    cockpit.spawn(["gst-client", "pipeline_play", "server"]);    
 }
 
 function Success() {
