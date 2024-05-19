@@ -199,7 +199,10 @@ function SaveSettings() {
 
     //change bitrate
     console.log("Changing pipeline h264src bitrate to " + losBitRate + "kbps...");
-    cockpit.spawn(["gst-client", "element_set", "h264src", "losEncoder", "bitrate", losBitRate]);
+    var scaledBitrate = losBitRate * 1000;
+    var extraText = "controls,repeat_sequence_header=1,h264_profile=1,h264_level=11,video_bitrate=" + scaledBitrate + ",h264_i_frame_period=30,h264_minimum_qp_value=10";
+    //extra-controls="controls,repeat_sequence_header=1,h264_profile=1,h264_level=11,video_bitrate=${SCALED_VIDEOSERVER_BITRATE},h264_i_frame_period=30,h264_minimum_qp_value=10
+    cockpit.spawn(["gst-client", "element_set", "h264src", "losEncoder", "extra-controls", extraText]);
 
     //change endpoint
     console.log("Changing pipeline host and port to " + losHost.value + ":" + losPort.value + "...");

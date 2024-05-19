@@ -14,8 +14,8 @@ if [[ "$LOS_HOST" =~ ^[2][2-3][4-9].* ]]; then
 fi
 
 #Scale the bitrate from kbps to bps
-# different encoders take different scales, rpi x264enc takes kbps directly, others may require bps
-#SCALED_VIDEOSERVER_BITRATE=$(($VIDEOSERVER_BITRATE * 1000)) 
+# different encoders take different scales, rpi x264enc takes kbps directly, others require bps
+SCALED_VIDEOSERVER_BITRATE=$(($VIDEOSERVER_BITRATE * 1000)) 
 
 # ensure previous pipelines are cancelled and cleared
 set +e
@@ -25,9 +25,15 @@ gstd -e -f /var/run -l /var/run/video-stream/gstd.log -d /var/run/video-stream/g
 
 # video pipelines
 # RPI H264 src
-gst-client pipeline_create h264src libcamerasrc ! capsfilter caps=video/x-raw,format=RGBx,width=1280,height=720,framerate=30/1 ! videoconvert ! video/x-raw,format=I420 ! x264enc tune=zerolatency speed-preset=ultrafast bitrate=${VIDEOSERVER_BITRATE} name=losEncoder ! interpipesink name=h264src
+
+# pipeline below is using software x265enc
+#gst-client pipeline_create h264src libcamerasrc ! capsfilter caps=video/x-raw,format=RGBx,width=1280,height=720,framerate=30/1 ! videoconvert ! video/x-raw,format=I420 ! x264enc tune=zerolatency speed-preset=ultrafast bitrate=${VIDEOSERVER_BITRATE} name=losEncoder ! interpipesink name=h264src
+
+# pipeline below is using hardware accelerated v4l2h264enc
+gst-client pipeline_create h264src libcamerasrc ! capsfilter caps="video/x-raw,width=1280,height=720,format=NV12,framerate=30/1,interlace-mode=(string)progressive" ! v4l2h264enc extra-controls="controls,repeat_sequence_header=1,h264_profile=1,h264_level=11,video_bitrate=${SCALED_VIDEOSERVER_BITRATE},h264_i_frame_period=30,h264_minimum_qp_value=10" name=losEncoder ! "video/x-h264,level=(string)4" ! interpipesink name=h264src
 
 # gst-client pipeline_create h265src udpsrc port=${GIMBAL_PORT} name=serverReceivePort ! "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H265, payload=(int)96" ! rtph265depay ! interpipesink name=h265src
+#gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live=true allow-renegotiation=true stream-sync=compensate-ts ! rtph264pay config-interval=1 pt=96 ! udpsink sync=false host=${LOS_HOST} port=${LOS_PORT} ${extra_los} name=losUDPSink
 gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live=true allow-renegotiation=true stream-sync=compensate-ts ! rtph264pay config-interval=1 pt=96 ! udpsink sync=false host=${LOS_HOST} port=${LOS_PORT} ${extra_los} name=losUDPSink
 
 # rtmp server variation with nvidia hw
