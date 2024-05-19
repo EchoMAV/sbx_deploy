@@ -15,7 +15,7 @@ fi
 
 #Scale the bitrate from kbps to bps
 # different encoders take different scales, rpi x264enc takes kbps directly, others require bps
-SCALED_VIDEOSERVER_BITRATE=$(($VIDEOSERVER_BITRATE * 1000)) 
+SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000)) 
 
 # ensure previous pipelines are cancelled and cleared
 set +e
