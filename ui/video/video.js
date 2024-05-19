@@ -50,13 +50,16 @@ function InitPage() {
     })
     .catch(error => Fail(error));  
     var serverFound = false;
+
+    mainSection.style.display="block";  //hack until I fix 
+    noServerSection.style.display="none";  //hack until I fix
+    /*
     //get gst-client pipeline_list response
     //the response is JSON, and we are specifically look to make sure the "server" pipeline exists
     cockpit.script(scriptLocation + "cockpitScript.sh -g")
     .then(function(content) {
         try {
-                mainSection.style.display="block";  //hack until I fix 
-                noServerSection.style.display="none";  //hack until I fix
+              
                 break; //skip for now
             var jsonObject = JSON.parse(content);
 
@@ -88,6 +91,7 @@ function InitPage() {
         }
     })
     .catch(error => Fail(error));  
+    */
 }
 
 function SuccessReadFile(content) {
