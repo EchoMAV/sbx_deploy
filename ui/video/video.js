@@ -193,18 +193,22 @@ function SaveSettings() {
     //rather than restarting video service, dynamically change settings
 
     //Handle h264src and los
+    console.log("Stopping pipelines...");
     cockpit.spawn(["gst-client", "pipeline_stop", "los"]);
     cockpit.spawn(["gst-client", "pipeline_stop", "h264src"]);
 
     //change bitrate
+    console.log("Changing pipeline h264src bitrate to " + losBitRate + "kbps...");
     cockpit.spawn(["gst-client", "element_set", "h264src", "losEncoder", "bitrate", losBitRate]);
 
     //change endpoint
+    console.log("Changing pipeline host and port to " + losHost.value + ":" + losPort.value + "...");
     cockpit.spawn(["gst-client", "element_set", "los", "losUDPSink", "host", losHost.value]);
     cockpit.spawn(["gst-client", "element_set", "los", "losUDPSink", "port", losPort.value]);
 
     if (losBitRate!==0)
     {
+        console.log("Starting pipelines...");
         cockpit.spawn(["gst-client", "pipeline_play", "h264src"]);  
         cockpit.spawn(["gst-client", "pipeline_play", "los"]);  
 
