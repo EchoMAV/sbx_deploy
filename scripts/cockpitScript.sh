@@ -5,9 +5,9 @@
 function ApnChange
 {
     echo "Removing existing network manager profile for cellular..."
-    nmcli con delete 'cellular'
+    sudo nmcli con delete 'cellular'
     echo "Adding network manager profile for cellular..."
-    nmcli connection add type gsm ifname ttyUSB0 con-name "cellular" apn "$1" connection.autoconnect yes	
+    sudo nmcli connection add type gsm ifname ttyUSB0 con-name "cellular" apn "$1" connection.autoconnect yes	
 }
 
 while [[ $# -gt 0 ]]; do 
