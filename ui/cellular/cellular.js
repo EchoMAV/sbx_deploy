@@ -51,6 +51,7 @@ function EnableButtonClicked() {
 }
 
 function SaveSettings() {
+    console.log("Updating apn value to "+ apn.value);
     cockpit.script(scriptLocation + "cockpitScript.sh -a " + apn.value);
     result.style.color = "green";
     result.innerHTML = "Success, restarting cellular...";
