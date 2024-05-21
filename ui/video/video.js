@@ -25,8 +25,8 @@ const losBitrateArray = [ "Disabled", "500", "750", "1000", "1250", "1500", "200
 const serverBitrateArray = [ "Disabled", "500", "750", "1000", "1250", "1500", "2000" ];
 
 //start both sections hidden, and then will enable appropriate section on page init
-mainSection.style.display="none";
 serverSection.style.display="none";
+noServerSection.style.display="none";
 
 document.onload = InitPage();
 
@@ -51,7 +51,7 @@ function InitPage() {
     .catch(error => Fail(error));  
     var serverFound = false;
 
-    mainSection.style.display="none";  //hack until I fix 
+    noServerSection.style.display="none";  //hack until I fix 
     serverSection.style.display="none";  //hack until I fix
     /*
     //get gst-client pipeline_list response
