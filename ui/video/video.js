@@ -4,6 +4,7 @@ const scriptLocation = "/usr/local/echopilot/scripts/";
 const losHost = document.getElementById("losHost");
 const losPort = document.getElementById("losPort");
 const losBitrate = document.getElementById("losBitrate");
+const cameraType = document.getElementById("cameraType");
 //const atakHost = document.getElementById("atakHost");
 //const atakPort = document.getElementById("atakPort");
 //const atakIface = document.getElementById("atakIface");
@@ -19,6 +20,9 @@ const noServerSection = document.getElementById("noServerSection");
 
 // used for primary gcs bitrate
 const losBitrateArray = [ "Disabled", "500", "750", "1000", "1250", "1500", "2000", "2500", "3000", "3500", "4000", "4500", "5000" ];
+
+// camera types
+const cameraTypeArray = [ "MIPI IMX477", "Fermion Boson 640", "Fermion 320" ];
 
 
 // used for mav, atak, and video
@@ -113,6 +117,7 @@ function SuccessReadFile(content) {
         var splitResult = content.split("\n");
         
         if(splitResult.length > 0) {
+            AddDropDown(cameraType, cameraTypeArray, myConfig.CAMERATYPE);
             losHost.value = myConfig.LOS_HOST;
             losPort.value = myConfig.LOS_PORT;
             AddDropDown(losBitrate, losBitrateArray, myConfig.LOS_BITRATE);
@@ -177,8 +182,9 @@ function CheckDisabled(disable){
 function SaveSettings() {
 
     var serverBitRate = CheckDisabled(videoBitrate.value);  
-    var losBitRate = CheckDisabled(losBitrate.value);    
+    var losBitRate = CheckDisabled(losBitrate.value);        
     cockpit.file(confLocation + "video.conf").replace("[Service]\n" + 
+        "CAMERA_TYPE=" + cameraType.value + "\n" +
         "LOS_HOST=" + losHost.value + "\n" +
         "LOS_PORT=" + losPort.value + "\n" +
         "LOS_BITRATE=" + losBitRate + "\n" +
@@ -191,6 +197,8 @@ function SaveSettings() {
         .catch(error => Fail(new Error("Failure, settings NOT changed!")));
 
     //rather than restarting video service, dynamically change settings
+
+    //to do, logic for different camera types
 
     //Handle h264src and los
     console.log("Stopping pipelines...");
