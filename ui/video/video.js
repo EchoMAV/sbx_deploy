@@ -117,7 +117,7 @@ function SuccessReadFile(content) {
         var splitResult = content.split("\n");
         
         if(splitResult.length > 0) {
-            AddDropDown(cameraType, cameraTypeArray, myConfig.CAMERATYPE);
+            AddDropDown(cameraType, cameraTypeArray, myConfig.CAMERA_TYPE);
             losHost.value = myConfig.LOS_HOST;
             losPort.value = myConfig.LOS_PORT;
             AddDropDown(losBitrate, losBitrateArray, myConfig.LOS_BITRATE);
