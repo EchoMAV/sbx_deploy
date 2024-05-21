@@ -14,7 +14,7 @@ const videoBitrate = document.getElementById("videoBitrate");
 const videoName = document.getElementById("videoName");
 const myIP = document.getElementById("myIP");
 const myIP2 = document.getElementById("myIP2");
-const mainSection = document.getElementById("mainSection");
+const serverSection = document.getElementById("serverSection");
 const noServerSection = document.getElementById("noServerSection");
 
 // used for primary gcs bitrate
@@ -26,7 +26,7 @@ const serverBitrateArray = [ "Disabled", "500", "750", "1000", "1250", "1500", "
 
 //start both sections hidden, and then will enable appropriate section on page init
 mainSection.style.display="none";
-noServerSection.style.display="none";
+serverSection.style.display="none";
 
 document.onload = InitPage();
 
@@ -51,8 +51,8 @@ function InitPage() {
     .catch(error => Fail(error));  
     var serverFound = false;
 
-    mainSection.style.display="block";  //hack until I fix 
-    noServerSection.style.display="none";  //hack until I fix
+    mainSection.style.display="none";  //hack until I fix 
+    serverSection.style.display="none";  //hack until I fix
     /*
     //get gst-client pipeline_list response
     //the response is JSON, and we are specifically look to make sure the "server" pipeline exists

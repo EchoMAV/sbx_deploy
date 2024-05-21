@@ -57,3 +57,7 @@ gst-client pipeline_play h264src
 # start los pipeline streaming
 gst-client pipeline_play los
 
+# putting this here for now... total hack, but seems sometimes we have to scan for Telit to show up
+sleep 20
+$SUDO /usr/bin/mmcli --scan-modems
+
