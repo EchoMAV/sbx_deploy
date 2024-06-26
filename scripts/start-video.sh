@@ -18,10 +18,10 @@ fi
 SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000)) 
 
 # ensure previous pipelines are cancelled and cleared
-set +e
-gstd -f /var/run -l /dev/null -d /dev/null -k
-set -e
-gstd -e -f /var/run -l /var/run/video-stream/gstd.log -d /var/run/video-stream/gst.log
+# set +e
+# gstd -f /var/run -l /dev/null -d /dev/null -k
+# set -e
+# gstd -e -f /var/run -l /var/run/video-stream/gstd.log -d /var/run/video-stream/gst.log
 
 # video pipelines
 # RPI H264 src
@@ -30,11 +30,10 @@ gstd -e -f /var/run -l /var/run/video-stream/gstd.log -d /var/run/video-stream/g
 #gst-client pipeline_create h264src libcamerasrc ! capsfilter caps=video/x-raw,format=RGBx,width=1280,height=720,framerate=30/1 ! videoconvert ! video/x-raw,format=I420 ! x264enc tune=zerolatency speed-preset=ultrafast bitrate=${VIDEOSERVER_BITRATE} name=losEncoder ! interpipesink name=h264src
 
 # pipeline below is using hardware accelerated v4l2h264enc
-gst-client pipeline_create h264src libcamerasrc ! capsfilter caps="video/x-raw,width=1280,height=720,format=NV12,framerate=30/1,interlace-mode=(string)progressive" ! v4l2h264enc extra-controls="controls,repeat_sequence_header=1,h264_profile=1,h264_level=11,video_bitrate=${SCALED_LOS_BITRATE},h264_i_frame_period=30,h264_minimum_qp_value=10" name=losEncoder ! "video/x-h264,level=(string)4" ! interpipesink name=h264src
+# gst-client pipeline_create h264src libcamerasrc ! capsfilter caps="video/x-raw,width=1280,height=720,format=NV12,framerate=30/1,interlace-mode=(string)progressive" ! v4l2h264enc extra-controls="controls,repeat_sequence_header=1,h264_profile=1,h264_level=11,video_bitrate=${SCALED_LOS_BITRATE},h264_i_frame_period=30,h264_minimum_qp_value=10" name=losEncoder ! "video/x-h264,level=(string)4" ! interpipesink name=h264src
 
 # gst-client pipeline_create h265src udpsrc port=${GIMBAL_PORT} name=serverReceivePort ! "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H265, payload=(int)96" ! rtph265depay ! interpipesink name=h265src
-#gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live=true allow-renegotiation=true stream-sync=compensate-ts ! rtph264pay config-interval=1 pt=96 ! udpsink sync=false host=${LOS_HOST} port=${LOS_PORT} ${extra_los} name=losUDPSink
-gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live=true allow-renegotiation=true stream-sync=compensate-ts ! rtph264pay config-interval=1 pt=96 ! udpsink sync=false host=${LOS_HOST} port=${LOS_PORT} ${extra_los} name=losUDPSink
+# gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live=true allow-renegotiation=true stream-sync=compensate-ts ! rtph264pay config-interval=1 pt=96 ! udpsink sync=false host=${LOS_HOST} port=${LOS_PORT} ${extra_los} name=losUDPSink
 
 # rtmp server variation with nvidia hw
 # gst-client pipeline_create server interpipesrc listen-to=h265src block=false is-live=true allow-renegotiation=true stream-sync=compensate-ts ! queue ! h265parse ! nvv4l2decoder enable-max-performance=true disable-dpb=true ! queue ! nvv4l2h264enc idrinterval=30 control-rate=1 bitrate=${SCALED_VIDEOSERVER_BITRATE} preset-level=1 name=serverEncoder ! h264parse ! flvmux streamable=true ! rtmpsink location="rtmp://${VIDEOSERVER_HOST}/LiveApp?streamid=LiveApp/${VIDEOSERVER_STREAMNAME} live=1" name=serverLocation
@@ -52,10 +51,14 @@ gst-client pipeline_create los interpipesrc listen-to=h264src block=true is-live
 # gst-client pipeline_create snapshot interpipesrc listen-to=h265src is-live=true allow-renegotiation=true stream-sync=compensate-ts ! queue max-size-buffers=3 leaky=downstream ! h265parse ! nvv4l2decoder ! nvvidconv ! video/x-raw,format=I420 ! jpegenc ! multifilesink name=filename location=capture.jpg max-files=1 async=false sync=false
 
 # start source pipeline streaming
-gst-client pipeline_play h264src
+# gst-client pipeline_play h264src
 
 # start los pipeline streaming
-gst-client pipeline_play los
+# gst-client pipeline_play los
+
+# using rpicam-vid for now to test performance before going back to libcamerasrc gstreamer element
+rpicam-vid --level 4.2 --framerate 60 --width 1280 --height 720 --bitrate {VIDEOSERVER_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT}
+
 
 # putting this here for now... total hack, but seems sometimes we have to scan for Telit to show up
 sleep 20
