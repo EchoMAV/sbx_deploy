@@ -57,7 +57,7 @@ SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000))
 # gst-client pipeline_play los
 
 # using rpicam-vid for now to test performance before going back to libcamerasrc gstreamer element
-rpicam-vid --level 4.2 --info-text %fps fps --denoise cdn_off --framerate 60 --width 1280 --height 720 --bitrate {VIDEOSERVER_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT}
+rpicam-vid --level 4.2 --info-text %fps fps --denoise cdn_off --framerate 60 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT}
 
 
 # putting this here for now... total hack, but seems sometimes we have to scan for Telit to show up
