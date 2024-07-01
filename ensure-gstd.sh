@@ -112,6 +112,6 @@ fi
 # https://github.com/RidgeRun/gst-interpipe/issues/49
 # I am seeing an error during build, but went away after a reboot.  therefore I am not going to stop the script if there is an error here
 #( cd ${GST_INTERPIPE_SRC} ; set +e ; make check ; set -e )
-( cd ${GST_INTERPIPE_SRC} make check ; )
+( cd ${GST_INTERPIPE_SRC} ; make check ; )
 
 echo "$(gstd --version)"
