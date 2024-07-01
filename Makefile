@@ -72,8 +72,6 @@ cockpit:
 	@$(SUDO) rm -rf /usr/share/cockpit/telemetry/ /usr/share/cockpit/mavnet-server/ /usr/share/cockpit/video/ /usr/share/cockpit/cellular
 	@$(SUDO) mkdir /usr/share/cockpit/telemetry/
 	@$(SUDO) cp -rf ui/telemetry/* /usr/share/cockpit/telemetry/
-	@$(SUDO) mkdir /usr/share/cockpit/mavnet-server/
-	@$(SUDO) cp -rf ui/mavnet-server/* /usr/share/cockpit/mavnet-server/
 	@$(SUDO) mkdir /usr/share/cockpit/video/
 	@$(SUDO) cp -rf ui/video/* /usr/share/cockpit/video/
 	@$(SUDO) mkdir /usr/share/cockpit/cellular
