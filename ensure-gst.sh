@@ -9,7 +9,8 @@ SUDO=$(test ${EUID} -ne 0 && which sudo)
 if [ "$1" == "--dry-run" ] ; then DRY_RUN=true && SUDO="echo ${SUDO}" ; fi
 
 if [ "${PLATFORM}" == "RPIX" ] ; then
-	$SUDO apt-get install -y gstreamer1.0-tools
+	echo "Assuming this is an RPi Lite install, so installing full gstreamer..."
+	$SUDO apt-get install -y apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio gstreamer1.0-libcamera
 elif ! GST_VERSION=$(gst-launch-1.0 --version | head -1 | cut -f3 -d' ') ; then
 	# Core modules needed for gst-inspect-1.0
 	if [ -x $(which apt-get) ] && ! $DRY_RUN ; then
