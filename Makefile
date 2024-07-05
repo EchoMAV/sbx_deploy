@@ -129,7 +129,7 @@ install: dependencies
 	@echo "Installing local scripts..."
 	@for s in $(LOCAL_SCRIPTS) ; do $(SUDO) install -Dm755 $${s} $(LOCAL)/echopilot/$${s} ; done
 
-# install LOCAL_CONFIG
+# install LOCAL_CONFIG files
 	@echo "Installing config files..."
 	@for s in $(LOCAL_CONFIG) ; do $(SUDO) cp $${s} $(LOCAL)/echopilot/$${s} ; done
 
