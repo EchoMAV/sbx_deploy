@@ -11,7 +11,8 @@ SUDO := $(shell test $${EUID} -ne 0 && echo "sudo")
 
 SERIAL ?= $(shell python3 serial_number.py)
 LOCAL=/usr/local
-LOCAL_SCRIPTS=scripts/start.sh scripts/cockpitScript.sh scripts/temperature.sh scripts/start-video.sh scripts/stop-video.sh scripts/serial_number.py scripts/snap.sh scripts/start-edge.sh
+LOCAL_SCRIPTS=scripts/start.sh scripts/cockpitScript.sh scripts/temperature.sh scripts/start-video.sh scripts/stop-video.sh scripts/serial_number.py scripts/snap.sh scripts/start-edge.sh 
+LOCAL_CONFIG=477_Pi4.json
 CONFIG ?= /var/local
 LIBSYSTEMD=/lib/systemd/system
 PKGDEPS ?= v4l-utils build-essential nano nload picocom curl htop modemmanager
@@ -127,6 +128,10 @@ install: dependencies
 # install LOCAL_SCRIPTS
 	@echo "Installing local scripts..."
 	@for s in $(LOCAL_SCRIPTS) ; do $(SUDO) install -Dm755 $${s} $(LOCAL)/echopilot/$${s} ; done
+
+# install LOCAL_CONFIG
+	@echo "Installing config files..."
+	@for s in $(LOCAL_CONFIG) ; do $(SUDO) cp $${s} $(LOCAL)/echopilot/$${s} ; done
 
 # stop and disable services
 	@echo "Disabling running services..."
