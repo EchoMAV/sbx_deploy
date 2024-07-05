@@ -60,7 +60,3 @@ SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000))
 rpicam-vid --level 4.2 --tuning-file /usr/local/echopilot/477-Pi4.json --info-text %fps fps --denoise cdn_off --framerate 50 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT}
 
 
-# putting this here for now... total hack, but seems sometimes we have to scan for Telit to show up
-sleep 20
-$SUDO /usr/bin/mmcli --scan-modems
-
