@@ -30,7 +30,7 @@ echo "Enter the network provisioning information below...";
 echo "Note for Herelink radios, use 192.168.144.X/24, but 192.168.144.10 and 192.168.144.11 cannot be used";
 
 IFACE="eth0"
-IP_INPUT=$(interactive "172.20.1.4/24" "IPv4 Address with Netmask")
+IP_INPUT=$(interactive "192.168.144.100/24" "IPv4 Address with Netmask")
 # GATEWAY=$(interactive "172.20.100.100" "IPv4 Gateway")
 # no gateway for now, as we want the cellular to provide gateway 
 GATEWAY=""
