@@ -57,6 +57,6 @@ SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000))
 # gst-client pipeline_play los
 
 # using rpicam-vid for now to test performance before going back to libcamerasrc gstreamer element
-rpicam-vid --level 4.2 --tuning-file /usr/local/echopilot/477-Pi4.json --info-text %fps fps --denoise cdn_off --framerate 50 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT} sync=false
+rpicam-vid --mode 1332:990:10 --level 4.2 --tuning-file /usr/local/echopilot/477-Pi4.json --denoise cdn_off --framerate 40 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT} async=false sync=false
 
 
