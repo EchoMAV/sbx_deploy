@@ -5,7 +5,7 @@ After=systemd-remount-fs.service network-online.target nss-lookup.target multi-u
 RequiresMountsFor=/etc /usr
 
 [Service]
-Type=forking
+Type=simple
 ExecStart=/usr/local/echopilot/scripts/start-video.sh
 EnvironmentFile=/usr/local/echopilot/mavnetProxy/video.conf
 ExecStop=/usr/local/echopilot/scripts/stop-video.sh
