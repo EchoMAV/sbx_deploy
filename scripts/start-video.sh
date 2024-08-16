@@ -58,7 +58,7 @@ SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000))
 
 
 # Run the seek camera pipeline in the background
-gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! x264enc tune=zerolatency bitrate=1024 ! rtph264pay config-interval=1 pt=96 ! udpsink host=${LOS_HOST} port=${LOS_SEEK_PORT} sync=false sync=false
+gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! x264enc tune=zerolatency bitrate=1024 ! rtph264pay config-interval=1 pt=96 ! udpsink host=${LOS_HOST} port=${LOS_SEEK_PORT} async=false sync=false
 
 # using rpicam-vid for now to test performance before going back to libcamerasrc gstreamer element
 #rpicam-vid --mode 1332:990:10 --level 4.2 --tuning-file /usr/local/echopilot/477-Pi4.json --denoise cdn_off --framerate 40 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT} async=false sync=false
