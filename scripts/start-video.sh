@@ -66,9 +66,9 @@ elif [[ $STREAM_TYPE == "THERMAL" ]]; then
     # Loop through each video device and check if it is a FLIR Boson camera
     for device in $video_devices; do
         # Use v4l2-ctl to get the device name
-        device_name=$(v4l2-ctl -d $device --info | grep "Driver name" | awk '{print $3}')        
+        device_name=$(v4l2-ctl -d $device --info | grep "Model" | awk '{print $3}')        
         # Check if the device name matches FLIR Boson (assuming "boson" is part of the driver name)
-        if [[ "$device_name" == *"boson"* ]]; then
+        if [[ "$device_name" == *"Boson"* ]]; then
             echo "FLIR Boson camera found at: $device"
             gst-launch-1.0 v4l2src device=$device io-mode=mmap ! "video/x-raw,format=(string)I420,width=(int)640,height=(int)512,framerate=(fraction)30/1" ! videorate max-rate=30 skip-to-first=true ! videoscale method=bilinear name=scale ! "video/x-raw,format=(string)I420,width=(int)1280,height=(int)720,framerate=(fraction)30/1" ! v4l2h264enc extra-controls="controls,video_bitrate=${SCALED_LOS_BITRATE}" ! "video/x-h264,level=(string)4.2" ! rtph264pay config-interval=1 pt=96 ! udpsink host=${LOS_HOST} port=${LOS_PORT} sync=false
         fi
