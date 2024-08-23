@@ -4,7 +4,7 @@
 # This is a simple video service currently, which assumes that a MIPI IMX477 camera is attached to the device at boot. It is using libcamerasrc under Bookworm.
 # It will also stream video from a FLIR Boson if the STREAM_TYPE is set to THERMAL and a Flir Boson is found on /dev/videoX
 
-readonly STREAM_TYPE="EO"  
+
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 LOCAL=/usr/local
 
@@ -58,10 +58,10 @@ SCALED_LOS_BITRATE=$(($LOS_BITRATE * 1000))
 # start los pipeline streaming
 # gst-client pipeline_play los
 
-if [[ $STREAM_TYPE == "EO" ]]; then
+if [[ $CAMERA_TYPE == "IMX477" ]]; then
     # using rpicam-vid for now to test performance before going back to libcamerasrc gstreamer element
     rpicam-vid --mode 1332:990:10 --level 4.2 --tuning-file /usr/local/echopilot/477-Pi4.json --denoise cdn_off --framerate 40 --width 1280 --height 720 --bitrate ${SCALED_LOS_BITRATE} -t 0 -n --inline -o - | gst-launch-1.0 fdsrc fd=0 ! h264parse config-interval=-1 ! rtph264pay ! udpsink host=${LOS_HOST} port=${LOS_PORT} async=false sync=false
-elif [[ $STREAM_TYPE == "THERMAL" ]]; then
+elif [[ $CAMERA_TYPE == "BOSON640" ]]; then
     video_devices=$(ls /dev/video*)
     # Loop through each video device and check if it is a FLIR Boson camera
     for device in $video_devices; do
