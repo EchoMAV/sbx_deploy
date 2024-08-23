@@ -1,7 +1,9 @@
 #!/bin/bash
 # script to start the SBX video streaming service
 # 
-# This is a simple video service currently, which assumes that a MIPI IMX477 camera is attached to the device at boot. It is using libcamerasrc under Bookworm
+# This is a simple video service currently, which assumes that a MIPI IMX477 camera is attached to the device at boot. It is using libcamerasrc under Bookworm.
+# It will also stream video from a FLIR Boson if the STREAM_TYPE is set to THERMAL and a Flir Boson is found on /dev/videoX
+
 readonly STREAM_TYPE="EO"  
 SUDO=$(test ${EUID} -ne 0 && which sudo)
 LOCAL=/usr/local
